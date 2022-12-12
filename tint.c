@@ -35,11 +35,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "typedefs.h"
-#include "utils.h"
-#include "io.h"
-#include "config.h"
-#include "engine.h"
+#include "header/typedefs.h"
+#include "header/utils.h"
+#include "header/io.h"
+#include "header/config.h"
+#include "header/engine.h"
 
 /*
  * Macros
