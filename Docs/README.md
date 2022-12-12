@@ -1,6 +1,6 @@
 # terminal-tetris
 
-terminal tetris
+TINT is not Tetris
 
 licence BSD
 

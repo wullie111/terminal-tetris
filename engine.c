@@ -30,10 +30,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "typedefs.h"
-#include "utils.h"
-#include "io.h"
-#include "engine.h"
+#include "header/typedefs.h"
+#include "header/utils.h"
+#include "header/io.h"
+#include "header/engine.h"
 
 /*
  * Global variables

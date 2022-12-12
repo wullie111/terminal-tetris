@@ -31,7 +31,7 @@
 #include <sys/time.h>	/* gettimeofday() */
 #include <unistd.h>		/* gettimeofday() */
 
-#include "io.h"
+#include "header/io.h"
 
 /* Number of colors defined in io.h */
 #define NUM_COLORS	8
