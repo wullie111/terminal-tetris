@@ -31,7 +31,7 @@
 #include <time.h>
 #include <limits.h>
 
-#include "typedefs.h"
+#include "header/typedefs.h"
 
 /*
  * Initialize random number generator
