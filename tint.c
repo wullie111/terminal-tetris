@@ -286,7 +286,7 @@ static void showstatus (engine_t *engine)
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 17);
    for (i = 0; i < MAXDIGITS + 16; i++) out_putch ('-');
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 18);
-   out_printf ("Sum          :");
+   out_printf ("TOTAL          :");
    snprintf (tmp,MAXDIGITS + 1,"%d",sum);
    out_gotoxy (out_width () - strlen (tmp) - 1,YTOP + 18);
    out_printf ("%s",tmp);
