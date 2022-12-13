@@ -87,8 +87,7 @@ static char blockchar = ' ';
 
 /* This function is responsible for increasing the score appropriately whenever
  * a block collides at the bottom of the screen (or the top of the heap */
-static void score_function (engine_t *engine)
-{
+static void score_function (engine_t *engine){
    int score = SCOREVAL (level * (engine->status.dropcount + 1));
 
    if (shownext) score /= 2;
@@ -98,15 +97,12 @@ static void score_function (engine_t *engine)
 }
 
 /* Draw the board on the screen */
-static void drawboard (board_t board)
-{
+static void drawboard (board_t board){
    int x,y;
    out_setattr (ATTR_OFF);
-   for (y = 1; y < NUMROWS - 1; y++) for (x = 0; x < NUMCOLS - 1; x++)
-	 {
+   for (y = 1; y < NUMROWS - 1; y++) for (x = 0; x < NUMCOLS - 1; x++) {
 		out_gotoxy (XTOP + x * 2,YTOP + y);
-		switch (board[x][y])
-		  {
+		switch (board[x][y]){
 			 /* Wall */
 		   case WALL:
 			 out_setattr (ATTR_BOLD);
@@ -117,14 +113,12 @@ static void drawboard (board_t board)
 			 break;
 			 /* Background */
 		   case 0:
-			 if (dottedlines)
-			   {
+			 if (dottedlines){
 				  out_setcolor (COLOR_BLUE,COLOR_BLACK);
 				  out_putch ('.');
 				  out_putch (' ');
 			   }
-			 else
-			   {
+			 else{
 				  out_setcolor (COLOR_BLACK,COLOR_BLACK);
 				  out_putch (' ');
 				  out_putch (' ');
@@ -141,20 +135,18 @@ static void drawboard (board_t board)
 }
 
 /* Show the next piece on the screen */
-static void drawnext (int shapenum,int x,int y)
-{
+static void drawnext (int shapenum,int x,int y){
    int i;
    block_t ofs[NUMSHAPES] =
 	 { { 1,  0 }, { 1,  0 }, { 1, -1 }, { 2,  0 }, { 1, -1 }, { 1, -1 }, { 0, -1 } };
    out_setcolor (COLOR_BLACK,COLOR_BLACK);
-   for (i = y - 2; i < y + 2; i++)
-	 {
+   for (i = y - 2; i < y + 2; i++){
+	   
 		out_gotoxy (x - 2,i);
 		out_printf ("        ");
 	 }
    out_setcolor (COLOR_BLACK,SHAPES[shapenum].color);
-   for (i = 0; i < NUMBLOCKS; i++)
-	 {
+   for (i = 0; i < NUMBLOCKS; i++){
 		out_gotoxy (x + SHAPES[shapenum].block[i].x * 2 + ofs[shapenum].x,
 					y + SHAPES[shapenum].block[i].y + ofs[shapenum].y);
 		out_putch (' ');
@@ -163,16 +155,16 @@ static void drawnext (int shapenum,int x,int y)
 }
 
 /* Draw the background */
-static void drawbackground ()
-{
-   out_setattr (ATTR_OFF);
+static void drawbackground (){
+   out_setattr (ATTR_OFF);	
    out_setcolor (COLOR_WHITE,COLOR_BLACK);
+	
    out_gotoxy (4,YTOP + 7);   out_printf ("H E L P");
    out_gotoxy (1,YTOP + 9);   out_printf ("p: Pause");
    out_gotoxy (1,YTOP + 10);  out_printf ("←: Left");
    out_gotoxy (1,YTOP + 11);  out_printf ("→: Right");
    out_gotoxy (1,YTOP + 12);  out_printf ("↑: Rotate");
-   out_gotoxy (1,YTOP + 13);  out_printf ("s: Draw next");
+   out_gotoxy (1,YTOP + 13);  out_printf ("s: Draw next");	
    out_gotoxy (1,YTOP + 14);  out_printf ("d: Toggle lines");
    out_gotoxy (1,YTOP + 15);  out_printf ("a: Speed up");
    out_gotoxy (1,YTOP + 16);  out_printf ("q: Quit");
@@ -180,63 +172,71 @@ static void drawbackground ()
    out_gotoxy (3,YTOP + 19);  out_printf ("Next:");
 }
 
-static int getsum ()
-{
+static int getsum (){
    int i,sum = 0;
    for (i = 0; i < NUMSHAPES; i++) sum += shapecount[i];
    return (sum);
 }
 
 /* This show the current status of the game */
-static void showstatus (engine_t *engine)
-{
+static void showstatus (engine_t *engine){
    static const int shapenum[NUMSHAPES] = { 4, 6, 5, 1, 0, 3, 2 };
    char tmp[MAXDIGITS + 1];
    int i,sum = getsum ();
    out_setattr (ATTR_OFF);
    out_setcolor (COLOR_WHITE,COLOR_BLACK);
+	
    out_gotoxy (1,YTOP + 1);   out_printf ("Your level: %d",level);
    out_gotoxy (1,YTOP + 2);   out_printf ("Full lines: %d",engine->status.droppedlines);
    out_gotoxy (2,YTOP + 4);   out_printf ("Score");
    out_setattr (ATTR_BOLD);
+	
    out_setcolor (COLOR_YELLOW,COLOR_BLACK);
    out_printf ("  %d",GETSCORE (engine->score));
+	
    if (shownext) drawnext (engine->nextshape,3,YTOP + 22);
    out_setattr (ATTR_OFF);
    out_setcolor (COLOR_WHITE,COLOR_BLACK);
    out_gotoxy (out_width () - MAXDIGITS - 12,YTOP + 1);
    out_printf ("STATISTICS");
+	
    out_setcolor (COLOR_BLACK,COLOR_MAGENTA);
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 3);
    out_printf ("      ");
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 4);
    out_printf ("  ");
+	
    out_setcolor (COLOR_MAGENTA,COLOR_BLACK);
    out_gotoxy (out_width () - MAXDIGITS - 3,YTOP + 3);
    out_putch ('-');
    snprintf (tmp,MAXDIGITS + 1,"%d",shapecount[shapenum[0]]);
    out_gotoxy (out_width () - strlen (tmp) - 1,YTOP + 3);
    out_printf ("%s",tmp);
+	
    out_setcolor (COLOR_BLACK,COLOR_RED);
    out_gotoxy (out_width () - MAXDIGITS - 13,YTOP + 5);
    out_printf ("        ");
+	
    out_setcolor (COLOR_RED,COLOR_BLACK);
    out_gotoxy (out_width () - MAXDIGITS - 3,YTOP + 5);
    out_putch ('-');
    snprintf (tmp,MAXDIGITS + 1,"%d",shapecount[shapenum[1]]);
    out_gotoxy (out_width () - strlen (tmp) - 1,YTOP + 5);
    out_printf ("%s",tmp);
+	
    out_setcolor (COLOR_BLACK,COLOR_WHITE);
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 7);
    out_printf ("      ");
    out_gotoxy (out_width () - MAXDIGITS - 13,YTOP + 8);
    out_printf ("  ");
+	
    out_setcolor (COLOR_WHITE,COLOR_BLACK);
    out_gotoxy (out_width () - MAXDIGITS - 3,YTOP + 7);
    out_putch ('-');
    snprintf (tmp,MAXDIGITS + 1,"%d",shapecount[shapenum[2]]);
    out_gotoxy (out_width () - strlen (tmp) - 1,YTOP + 7);
    out_printf ("%s",tmp);
+	
    out_setcolor (COLOR_BLACK,COLOR_GREEN);
    out_gotoxy (out_width () - MAXDIGITS - 9,YTOP + 9);
    out_printf ("    ");
