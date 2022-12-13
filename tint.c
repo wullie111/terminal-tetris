@@ -161,6 +161,10 @@ static void drawbackground (){
 	
    out_gotoxy (4,YTOP + 7);   out_printf ("H E L P");
    out_gotoxy (1,YTOP + 9);   out_printf ("p: Pause");
+   out_gotoxy (1,YTOP + 10);  out_printf ("<: Left");
+   out_gotoxy (1,YTOP + 11);  out_printf (">: Right");
+   out_gotoxy (1,YTOP + 12);  out_printf ("^: Rotate");
+   out_gotoxy (1,YTOP + 13);  out_printf ("s: Draw next");
    out_gotoxy (1,YTOP + 10);  out_printf ("←: Left");
    out_gotoxy (1,YTOP + 11);  out_printf ("→: Right");
    out_gotoxy (1,YTOP + 12);  out_printf ("↑: Rotate");
@@ -286,7 +290,7 @@ static void showstatus (engine_t *engine){
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 17);
    for (i = 0; i < MAXDIGITS + 16; i++) out_putch ('-');
    out_gotoxy (out_width () - MAXDIGITS - 17,YTOP + 18);
-   out_printf ("Sum          :");
+   out_printf ("TOTAL          :");
    snprintf (tmp,MAXDIGITS + 1,"%d",sum);
    out_gotoxy (out_width () - strlen (tmp) - 1,YTOP + 18);
    out_printf ("%s",tmp);
